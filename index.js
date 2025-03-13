@@ -31,7 +31,15 @@ async function run() {
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
         // COLLECTIONS 
-        // const userCollection = client.db("Note-Nest").collection("users");
+        const userCollection = client.db("Note-Nest").collection("users");
+
+
+        // POST DATA OF USER TO DATABASE WHEN REGISTERING 
+        app.post("/userRegister", async (req, res) => {
+            let user = req.body;
+            let result = await userCollection.insertOne(user);
+            res.send(result);
+        })
 
 
 
