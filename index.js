@@ -33,6 +33,7 @@ async function run() {
         // COLLECTIONS 
         const userCollection = client.db("Note-Nest").collection("users");
         const folderCollection = client.db("Note-Nest").collection("folders");
+        const noteCollection = client.db("Note-Nest").collection("notes");
 
 
         // POST DATA OF USER TO DATABASE WHEN REGISTERING 
@@ -83,6 +84,13 @@ async function run() {
             const result = await folderCollection.find(query).toArray();
             res.send(result);
         });
+
+        // API TO ADD A NEW NOTE 
+        app.post("/addNote", async (req, res) => {
+            let note = req.body;
+            let result = await noteCollection.insertOne(note);
+            res.send(result);
+        })
 
 
 
