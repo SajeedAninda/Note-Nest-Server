@@ -73,6 +73,17 @@ async function run() {
             res.send(result);
         })
 
+        // API TO GET FOLDERS BASED ON EMAIL 
+        app.get("/getFolders", async (req, res) => {
+            let email = req.query.email;
+            if (!email) {
+                return res.status(400).send({ error: "Email is required" });
+            }
+            let query = { userEmail: email };
+            const result = await folderCollection.find(query).toArray();
+            res.send(result);
+        });
+
 
 
 
