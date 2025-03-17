@@ -32,6 +32,7 @@ async function run() {
 
         // COLLECTIONS 
         const userCollection = client.db("Note-Nest").collection("users");
+        const folderCollection = client.db("Note-Nest").collection("folders");
 
 
         // POST DATA OF USER TO DATABASE WHEN REGISTERING 
@@ -54,6 +55,23 @@ async function run() {
             let result = await userCollection.insertOne(userDetails);
             res.send(result);
         });
+
+        // GET THE CURRENT USER DATA 
+        app.get("/userData/:email", async (req, res) => {
+            const email = req.params.email;
+            const query = {
+                email: email,
+            };
+            const result = await userCollection.findOne(query);
+            res.send(result);
+        });
+
+        // API TO CREATE A NEW NOTE FOLDER 
+        app.post("/addNoteFolder", async (req, res) => {
+            let folder = req.body;
+            let result = await folderCollection.insertOne(folder);
+            res.send(result);
+        })
 
 
 
