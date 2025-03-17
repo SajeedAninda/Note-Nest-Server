@@ -92,6 +92,17 @@ async function run() {
             res.send(result);
         })
 
+        // API TO GET NOTES BASED ON EMAIL 
+        app.get("/getNotes", async (req, res) => {
+            let email = req.query.email;
+            if (!email) {
+                return res.status(400).send({ error: "Email is required" });
+            }
+            let query = { userEmail: email };
+            const result = await noteCollection.find(query).toArray();
+            res.send(result);
+        });
+
 
 
 
