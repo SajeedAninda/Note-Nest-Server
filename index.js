@@ -115,6 +115,13 @@ async function run() {
         });
 
 
+        // API TO ADD TO TRASH AFTER DELETING A NOTE 
+        app.post("/addToTrash", async (req, res) => {
+            let note = req.body;
+            let result = await trashCollection.insertOne(note);
+            res.send(result);
+        })
+
 
 
 
