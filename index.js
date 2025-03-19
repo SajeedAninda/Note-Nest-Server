@@ -122,6 +122,17 @@ async function run() {
             res.send(result);
         })
 
+        // API TO GET TRASHED NOTES BASED ON EMAIL 
+        app.get("/getTrashedNotes", async (req, res) => {
+            let email = req.query.email;
+            if (!email) {
+                return res.status(400).send({ error: "Email is required" });
+            }
+            let query = { userEmail: email };
+            const result = await trashCollection.find(query).toArray();
+            res.send(result);
+        });
+
 
 
 
