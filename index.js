@@ -34,6 +34,7 @@ async function run() {
         const userCollection = client.db("Note-Nest").collection("users");
         const folderCollection = client.db("Note-Nest").collection("folders");
         const noteCollection = client.db("Note-Nest").collection("notes");
+        const trashCollection = client.db("Note-Nest").collection("trash");
 
 
         // POST DATA OF USER TO DATABASE WHEN REGISTERING 
@@ -102,6 +103,17 @@ async function run() {
             const result = await noteCollection.find(query).toArray();
             res.send(result);
         });
+
+        // API TO DELETE NOTE 
+        app.delete("/noteDelete/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = {
+                _id: new ObjectId(id),
+            };
+            const result = await noteCollection.deleteOne(query);
+            res.send(result);
+        });
+
 
 
 
