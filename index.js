@@ -133,6 +133,14 @@ async function run() {
             res.send(result);
         });
 
+        // API TO GET A SPECIFIC FOLDER BY ID
+        app.get("/getFolder/:id", async (req, res) => {
+            const folderId = req.params.id;
+            const query = { _id: new ObjectId(folderId) };
+            const folder = await folderCollection.findOne(query);
+            res.send(folder);
+        });
+
 
 
 
