@@ -141,6 +141,18 @@ async function run() {
             res.send(folder);
         });
 
+        // API TO UPDATE NOTE 
+        app.patch('/updateNote/:id', async (req, res) => {
+            const { id } = req.params
+            const { noteName, selectedColor, noteDescription, notefolder } = req.body
+
+            const result = await noteCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: { noteName, selectedColor, noteDescription, notefolder } }
+            )
+
+            res.json(result)
+        })
 
 
 
